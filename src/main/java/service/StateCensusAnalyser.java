@@ -40,12 +40,12 @@ public class StateCensusAnalyser {
                 count++;
             }
         } catch (NoSuchFileException e) {
-            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
         } catch (RuntimeException e) {
-            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
+            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
         }
         catch (IOException e) {
-            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+          e.printStackTrace();
         }
         return count;
     }

@@ -51,6 +51,17 @@ public class TestCases {
         }
     }
 
+    //TC 1.5
+    @Test
+    public void givenFile_WhenHeaderIncorrect_ReturnCustomiseException(){
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData2.csv";
+        StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
+        try {
+            stateCensusAnalyzer.loadRecords();
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT,e.exceptionType);
+        }
+    }
 
 
 
