@@ -10,7 +10,6 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-
 public class StateCensusAnalyser {
     private static String CSV_FILE_PATH;
     int count=0;
