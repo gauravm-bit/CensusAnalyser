@@ -6,23 +6,23 @@ public class StateCodePojo {
     @CsvBindByName(column = "SrNo")
     private String srno;
 
-    @CsvBindByName(column = "State")
-    private String state;
-
-    @CsvBindByName(column = "Name")
-    private String name;
+    @CsvBindByName(column = "StateName")
+    private String stateName;
 
     @CsvBindByName(column = "TIN")
     private String tin;
 
+    @CsvBindByName(column = "StateCode")
+    private String stateCode;
+
     public StateCodePojo() {
     }
 
-    public StateCodePojo(String srno, String state, String name, String tin) {
+    public StateCodePojo(String srno, String stateName, String tin, String stateCode) {
         this.srno = srno;
-        this.state = state;
-        this.name = name;
+        this.stateName = stateName;
         this.tin = tin;
+        this.stateCode = stateCode;
     }
 
     public String getSrno() {
@@ -33,20 +33,8 @@ public class StateCodePojo {
         this.srno = srno;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public String getStateName() {
+        return stateName;
     }
 
     public String getTin() {
@@ -55,5 +43,13 @@ public class StateCodePojo {
 
     public void setTin(String tin) {
         this.tin = tin;
+    }
+
+    public String getStateCode() {
+        return stateCode;
+    }
+
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
     }
 }
