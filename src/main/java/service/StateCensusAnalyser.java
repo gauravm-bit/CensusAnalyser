@@ -1,5 +1,6 @@
 package service;
 import model.CSVStateCensus;
+import Exception.CensusAnalyserException;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
@@ -10,10 +11,14 @@ import java.util.Iterator;
 
 
 public class StateCensusAnalyser {
-    private static final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.csv";
+    private static String CSV_FILE_PATH;
     int count=0;
 
-    public int loadRecords() throws IOException {
+    public StateCensusAnalyser(String path) {
+        CSV_FILE_PATH = path;
+    }
+
+    public int loadRecords() throws CensusAnalyserException {
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
         ) {
@@ -33,6 +38,9 @@ public class StateCensusAnalyser {
                 System.out.println("==========================");
                 count++;
             }
+        } catch (IOException e) {
+            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+
         }
         return count;
     }
