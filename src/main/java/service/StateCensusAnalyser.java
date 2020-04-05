@@ -6,6 +6,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
@@ -38,7 +39,12 @@ public class StateCensusAnalyser {
                 System.out.println("==========================");
                 count++;
             }
-        } catch (IOException e) {
+        } catch (NoSuchFileException e) {
+            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+        } catch (RuntimeException e) {
+            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
+        }
+        catch (IOException e) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
 
         }
