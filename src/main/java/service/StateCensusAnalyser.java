@@ -46,7 +46,6 @@ public class StateCensusAnalyser {
         }
         catch (IOException e) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
-
         }
         return count;
     }

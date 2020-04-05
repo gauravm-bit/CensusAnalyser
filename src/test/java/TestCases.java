@@ -39,4 +39,20 @@ public class TestCases {
         }
     }
 
+    //TC 1.4
+    @Test
+    public void givenFile_WhenDelimiterIncorrect_ReturnCustomiseException(){
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData1.csv";
+        StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
+        try {
+            stateCensusAnalyzer.loadRecords();
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT,e.exceptionType);
+        }
+    }
+
+
+
+
+
 }
