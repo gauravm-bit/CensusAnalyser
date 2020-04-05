@@ -1,7 +1,9 @@
 import service.StateCensusAnalyser;
 import org.junit.Assert;
 import Exception.CensusAnalyserException;
+import service.StateCode;
 import org.junit.Test;
+import java.io.IOException;
 
 
 public class TestCases {
@@ -61,6 +63,15 @@ public class TestCases {
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT,e.exceptionType);
         }
+    }
+
+    //TC 2.1
+    @Test
+    public void givenNumberOfRecordsOfStateCode_WhenMatched_ReturnTrue() throws IOException {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCode.csv";
+        StateCode stateCode = new StateCode(CSV_FILE_PATH);
+        int numberOfRecords = stateCode.loadStateCodeRecords();
+        Assert.assertEquals(37, numberOfRecords);
     }
 
 }
