@@ -41,7 +41,9 @@ public class StateCode {
             }
         }catch (NoSuchFileException e) {
             throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
-        }catch (IOException e) {
+        }catch (RuntimeException e) {
+            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
+        }catch (IOException e){
             e.printStackTrace();
         }
         return count;

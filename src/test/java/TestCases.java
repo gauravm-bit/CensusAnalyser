@@ -10,7 +10,7 @@ public class TestCases {
 
     //TC 1.1
     @Test
-    public void givenNumberOfRecords_WhenMatched_ReturnTrue() throws CensusAnalyserException {
+    public void givenNumberOfRecords_ShouldWhenMatched_ReturnTrue() throws CensusAnalyserException {
         final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.csv";
         StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
         int numberOfRecords = stateCensusAnalyzer.loadRecords();
@@ -19,7 +19,7 @@ public class TestCases {
 
     //TC 1.2
     @Test
-    public void givenFileName_WhenWrong_ReturnCustomException(){
+    public void givenFileName_WhenWrong_ShouldReturnCustomException(){
         final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StatecensusData.csv";
         StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
         try {
@@ -31,7 +31,7 @@ public class TestCases {
 
     //TC 1.3
     @Test
-    public void givenFileType_WhenWrong_ReturnCustomException(){
+    public void givenFileType_WhenWrong_ShouldReturnCustomException(){
         final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.csv";
         StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
         try {
@@ -43,7 +43,7 @@ public class TestCases {
 
     //TC 1.4
     @Test
-    public void givenFile_WhenDelimiterIncorrect_ReturnCustomException(){
+    public void givenFile_WhenDelimiterIncorrect_ShouldReturnCustomException(){
         final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData1.csv";
         StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
         try {
@@ -55,7 +55,7 @@ public class TestCases {
 
     //TC 1.5
     @Test
-    public void givenFile_WhenHeaderIncorrect_ReturnCustomException(){
+    public void givenFile_WhenHeaderIncorrect_ShouldReturnCustomException(){
         final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData2.csv";
         StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH);
         try {
@@ -67,7 +67,7 @@ public class TestCases {
 
     //TC 2.1
     @Test
-    public void givenNumberOfRecordsOfStateCode_WhenMatched_ReturnTrue() throws CensusAnalyserException {
+    public void givenNumberOfRecordsOfStateCode_WhenMatched_ShouldReturnTrue() throws CensusAnalyserException {
         final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCode.csv";
         StateCode stateCode = new StateCode(CSV_FILE_PATH);
         int numberOfRecords = stateCode.loadStateCodeRecords();
