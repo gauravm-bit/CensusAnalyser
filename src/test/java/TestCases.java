@@ -74,4 +74,52 @@ public class TestCases {
         Assert.assertEquals(37, numberOfRecords);
     }
 
+    //TC 2.2
+    @Test
+    public void givenFileNameOfStateCode_WhenWrong_ShouldReturnCustomException() {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/statecode.csv";
+        StateCode stateCode = new StateCode(CSV_FILE_PATH);
+        try {
+            stateCode.loadStateCodeRecords();
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, e.exceptionType);
+        }
+    }
+
+    //TC 2.3
+    @Test
+    public void givenFileTypeOfStateCode_WhenWrong_ShouldReturnCustomException() {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCode.txt";
+        StateCode stateCode = new StateCode(CSV_FILE_PATH);
+        try {
+            stateCode.loadStateCodeRecords();
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, e.exceptionType);
+        }
+    }
+
+    //TC 2.4
+    @Test
+    public void givenFileOfStateCode_WhenDelimiterIncorrect_ShouldReturnCustomiseException() {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCode1.csv";
+        StateCode stateCode = new StateCode(CSV_FILE_PATH);
+        try {
+            stateCode.loadStateCodeRecords();
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT, e.exceptionType);
+        }
+    }
+
+    //TC 2.5
+    @Test
+    public void givenFileOfStateCode_WhenHeadersIncorrect_ShouldReturnCustomiseException() {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCode1.csv";
+        StateCode stateCode = new StateCode(CSV_FILE_PATH);
+        try {
+            stateCode.loadStateCodeRecords();
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT, e.exceptionType);
+        }
+    }
+
 }
