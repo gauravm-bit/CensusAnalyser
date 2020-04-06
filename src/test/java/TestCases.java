@@ -3,6 +3,7 @@ import model.StateCodePojo;
 import service.StateCensusAnalyser;
 import org.junit.Assert;
 import Exception.CSVBuilderException;
+import com.google.gson.Gson;
 import org.junit.Test;
 
 public class TestCases {
@@ -119,6 +120,17 @@ public class TestCases {
         } catch (CSVBuilderException e) {
             Assert.assertEquals(CSVBuilderException.ExceptionType.DELIMITER_INCORRECT, e.exceptionType);
         }
+    }
+
+    //TC 3.1
+    @Test
+    public void givenCensusData_WhenSorted_ShouldReturnSortedList() throws CSVBuilderException {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.csv";
+        StateCensusAnalyser stateCensusAnalyzer = new StateCensusAnalyser(CSV_FILE_PATH, CSVStateCensus.class);
+        stateCensusAnalyzer.loadRecords();
+        String SortedData = stateCensusAnalyzer.getSortedCensusData();
+        CSVStateCensus[] censusCSV = new Gson().fromJson(SortedData, CSVStateCensus[].class);
+        Assert.assertEquals("Andhra Pradesh", censusCSV[0].getState());
     }
 
 }
