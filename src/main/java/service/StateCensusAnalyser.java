@@ -1,5 +1,5 @@
 package service;
-import Exception.CensusAnalyserException;
+import Exception.CSVBuilderException;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -19,7 +19,7 @@ public class StateCensusAnalyser <E>{
     }
 
     //METHOD TO LOAD RECORDS OF CSV FILE
-    public int loadRecords() throws CensusAnalyserException {
+    public int loadRecords() throws CSVBuilderException {
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH))
         ) {
@@ -30,11 +30,11 @@ public class StateCensusAnalyser <E>{
                 count++;
             }
         } catch (NoSuchFileException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+            throw new CSVBuilderException(e.getMessage(),
+                    CSVBuilderException.ExceptionType.FILE_NOT_FOUND);
         } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
+            throw new CSVBuilderException(e.getMessage(),
+                    CSVBuilderException.ExceptionType.DELIMITER_INCORRECT);
         }
         catch (IOException e) {
           e.printStackTrace();
