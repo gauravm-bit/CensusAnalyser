@@ -3,6 +3,9 @@ package model;
 import com.opencsv.bean.CsvBindByName;
 
 public class StateCodePojo {
+    @CsvBindByName(column = "StateCode", required = true)
+    public String stateCode;
+
     @CsvBindByName(column = "SrNo", required = true)
     private String srno;
 
@@ -12,9 +15,6 @@ public class StateCodePojo {
     @CsvBindByName(column = "TIN", required = true)
     private String tin;
 
-    @CsvBindByName(column = "StateCode", required = true)
-    public String stateCode;
-
     public StateCodePojo() {
     }
 
@@ -23,26 +23,6 @@ public class StateCodePojo {
         this.stateName = stateName;
         this.tin = tin;
         this.stateCode = stateCode;
-    }
-
-    public String getSrno() {
-        return srno;
-    }
-
-    public void setSrno(String srno) {
-        this.srno = srno;
-    }
-
-    public String getStateName() {
-        return stateName;
-    }
-
-    public String getTin() {
-        return tin;
-    }
-
-    public void setTin(String tin) {
-        this.tin = tin;
     }
 
     public String getStateCode() {

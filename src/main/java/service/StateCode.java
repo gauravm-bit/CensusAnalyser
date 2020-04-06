@@ -1,6 +1,6 @@
 package service;
 import Exception.CensusAnalyserException;
-import model.CSVStateCensus;
+
 import java.io.IOException;
 import model.StateCodePojo;
 import com.opencsv.bean.CsvToBean;
