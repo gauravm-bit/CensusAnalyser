@@ -1,7 +1,5 @@
 package service;
 import Exception.CensusAnalyserException;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -21,16 +19,12 @@ public class StateCensusAnalyser <E>{
     }
 
     //METHOD TO LOAD RECORDS OF CSV FILE
-    public  int loadRecords() throws CensusAnalyserException {
+    public int loadRecords() throws CensusAnalyserException {
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH))
         ) {
-            CsvToBean<E> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(csvClass)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            Iterator<E> csvUserIterator = csvToBean.iterator();
+            OpenCSVBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
+            Iterator csvUserIterator = csvBuilder.getIterator(reader, csvClass);
             while (csvUserIterator.hasNext()) {
                 csvUserIterator.next();
                 count++;
