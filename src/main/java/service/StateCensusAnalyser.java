@@ -4,6 +4,7 @@ import Exception.CSVBuilderException;
 import model.CSVStateCensus;
 import com.google.gson.Gson;
 
+import model.StateCodePojo;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -52,6 +53,14 @@ public class StateCensusAnalyser <E>{
         String SortedCSVJson = new Gson().toJson(csvUserList);
         return SortedCSVJson;
     }
+
+    public String getSortedStateCodeData(){
+        Comparator<StateCodePojo> CodeComparator = Comparator.comparing(code -> code.stateCode);
+        this.sort((Comparator<E>) CodeComparator);
+        String SortedCodeJson = new Gson().toJson(csvUserList);
+        return SortedCodeJson;
+    }
+
 
     private void sort(Comparator<E> csvComparator) {
         for (int i = 0; i < csvUserList.size() - 1; i++) {
