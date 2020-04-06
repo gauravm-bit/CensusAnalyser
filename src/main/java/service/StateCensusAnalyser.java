@@ -80,18 +80,27 @@ public class StateCensusAnalyser {
         return 0;
     }
     public String getSortedCensusData() {
-        Comparator<CensusDAO> CSVComparator = Comparator.comparing(census -> census.state);
-        this.sort(CSVComparator);
+        Comparator<CensusDAO> csvComparator = Comparator.comparing(census -> census.state);
+        this.sort(csvComparator);
         String SortedCSVJson = new Gson().toJson(stateCensusList);
         return SortedCSVJson;
     }
 
     public String getSortedStateCodeData(){
-        Comparator<CensusDAO> CodeComparator = Comparator.comparing(code -> code.stateCode);
-        this.sort(CodeComparator);
+        Comparator<CensusDAO> codeComparator = Comparator.comparing(code -> code.stateCode);
+        this.sort(codeComparator);
         String SortedCodeJson = new Gson().toJson(stateCensusList);
         return SortedCodeJson;
     }
+
+    public String getSortedCensusDataPopulationWise(){
+        Comparator<CensusDAO> populationComparator = Comparator.comparing(census -> census.population);
+        this.sort(populationComparator);
+        Collections.reverse(stateCensusList);
+        String sortedPopulationJson = new Gson().toJson(stateCensusList);
+        return sortedPopulationJson;
+    }
+
 
 
     private <E> void sort(Comparator<CensusDAO> csvComparator) {
