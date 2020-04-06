@@ -25,6 +25,30 @@ public class StateCodePojo {
         this.stateCode = stateCode;
     }
 
+    public String getSrno() {
+        return srno;
+    }
+
+    public void setSrno(String srno) {
+        this.srno = srno;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public String getTin() {
+        return tin;
+    }
+
+    public void setTin(String tin) {
+        this.tin = tin;
+    }
+
     public String getStateCode() {
         return stateCode;
     }
@@ -32,4 +56,5 @@ public class StateCodePojo {
     public void setStateCode(String stateCode) {
         this.stateCode = stateCode;
     }
+
 }
