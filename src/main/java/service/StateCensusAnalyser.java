@@ -1,5 +1,4 @@
 package service;
-import model.CSVStateCensus;
 import Exception.CensusAnalyserException;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -10,38 +9,38 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-public class StateCensusAnalyser {
+public class StateCensusAnalyser <E>{
     private static String CSV_FILE_PATH;
+    private final Class<E> csvClass;
     int count=0;
 
-    public StateCensusAnalyser(String path) {
+    public StateCensusAnalyser(String path, Class<E> csvClss) {
+        //VARIABLES
         CSV_FILE_PATH = path;
+        csvClass = csvClss;
     }
 
-    public int loadRecords() throws CensusAnalyserException {
+    //METHOD TO LOAD RECORDS OF CSV FILE
+    public  int loadRecords() throws CensusAnalyserException {
         try (
-                Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
+                Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH))
         ) {
-            CsvToBean<CSVStateCensus> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(CSVStateCensus.class)
+            CsvToBean<E> csvToBean = new CsvToBeanBuilder(reader)
+                    .withType(csvClass)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
-            Iterator<CSVStateCensus> csvUserIterator = csvToBean.iterator();
-
+            Iterator<E> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
-                CSVStateCensus csvStateCensus = csvUserIterator.next();
-                System.out.println("Name : " + csvStateCensus.getState());
-                System.out.println("Email : " + csvStateCensus.getPopulation());
-                System.out.println("Phone : " + csvStateCensus.getArea());
-                System.out.println("Country : " + csvStateCensus.getDensity());
-                System.out.println("==========================");
+                csvUserIterator.next();
                 count++;
             }
         } catch (NoSuchFileException e) {
-            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
         } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.DELIMITER_INCORRECT);
         }
         catch (IOException e) {
           e.printStackTrace();
