@@ -7,13 +7,13 @@ public class StateCodePojo {
     public String stateCode;
 
     @CsvBindByName(column = "SrNo", required = true)
-    private String srno;
+    public String srno;
 
     @CsvBindByName(column = "StateName", required = true)
-    private String stateName;
+    public String stateName;
 
     @CsvBindByName(column = "TIN", required = true)
-    private String tin;
+    public String tin;
 
     public StateCodePojo() {
     }
