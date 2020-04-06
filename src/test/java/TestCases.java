@@ -143,4 +143,13 @@ public class TestCases {
         Assert.assertEquals(199812341, stateCensusPojo[0].population);
     }
 
+    //TC 6.1
+    @Test
+    public void givenStateCensusData_WhenDensitySorted_ShouldReturnSortedResult() throws CSVBuilderException {
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.csv";
+        stateCensusAnalyser.loadCensusRecords(CSV_FILE_PATH);
+        String sortedData = stateCensusAnalyser.getSortedCensusDataDensityWise();
+        StateCensusPojo[] stateCensusPojo = new Gson().fromJson(sortedData, StateCensusPojo[].class);
+        Assert.assertEquals(1102, stateCensusPojo[0].density);
+    }
 }
