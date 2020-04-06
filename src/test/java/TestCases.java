@@ -3,7 +3,6 @@ import model.StateCodePojo;
 import service.StateCensusAnalyser;
 import org.junit.Assert;
 import Exception.CSVBuilderException;
-import service.StateCode;
 import org.junit.Test;
 
 public class TestCases {
