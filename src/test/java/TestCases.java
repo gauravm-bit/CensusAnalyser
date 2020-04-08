@@ -31,7 +31,7 @@ public class TestCases {
     //TC 1.3
     @Test
     public void givenFileType_WhenWrong_ShouldReturnCustomException(){
-        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.csv";
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCensusData.png";
         try {
             stateCensusAnalyser.loadCensusRecords(CSV_FILE_PATH);
         } catch (CSVBuilderException e) {
@@ -120,17 +120,17 @@ public class TestCases {
         stateCensusAnalyser.loadCensusRecords(CSV_FILE_PATH);
         String SortedData = stateCensusAnalyser.getSortedCensusData();
         StateCensusPojo[] censusCSV = new Gson().fromJson(SortedData, StateCensusPojo[].class);
-        Assert.assertEquals("Andhra Pradesh", censusCSV[0].getState());
+        Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
     }
 
     //TC 4.1
     @Test
     public void givenStateCodeData_WhenSorted_ShouldReturnSortedList() throws CSVBuilderException {
-        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/statecode.csv";
+        final String CSV_FILE_PATH = "C:/Users/GAURAV/IdeaProjects/Census Analyzer/src/main/resources/StateCode.csv";
         stateCensusAnalyser.loadStateCodeRecords(CSV_FILE_PATH);
         String SortedData = stateCensusAnalyser.getSortedStateCodeData();
         StateCodePojo[] StateCodes = new Gson().fromJson(SortedData, StateCodePojo[].class);
-        Assert.assertEquals("AD", StateCodes[0].getStateCode());
+        Assert.assertEquals("AD", StateCodes[0].stateCode);
     }
 
     //TC5.1

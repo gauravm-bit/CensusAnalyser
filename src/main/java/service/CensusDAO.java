@@ -23,7 +23,7 @@ public class CensusDAO {
     public CensusDAO(StateCodePojo stateCodePojo){
         this.stateCode = stateCodePojo.stateCode;
         this.stateName = stateCodePojo.stateName;
-        this.srNo = stateCodePojo.srno;
+        this.srNo = stateCodePojo.srNo;
 
     }
 }
