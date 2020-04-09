@@ -1,10 +1,12 @@
 package service;
 
+import model.CSVUSCensus;
 import Exception.CSVBuilderException;
 import model.StateCensusPojo;
 import com.google.gson.Gson;
 
 import model.StateCodePojo;
+import java.util.stream.StreamSupport;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -35,11 +37,11 @@ public class StateCensusAnalyser {
         ) {
             OpenCSVBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
             Iterator<StateCensusPojo> censusIterator = csvBuilder.getIterator(reader, StateCensusPojo.class);
-            while (censusIterator.hasNext()) {
-                CensusDAO censusDAO = new CensusDAO(censusIterator.next());
-                this.stateCensusMap.put(censusDAO.state, censusDAO);
-                stateCensusList = stateCensusMap.values().stream().collect(Collectors.toList());
-            }
+            Iterable<StateCensusPojo> censusIterable = () -> censusIterator;
+            StreamSupport.stream(censusIterable.spliterator(), false)
+                .forEach(stateCensusPojo -> stateCensusMap.put(stateCensusPojo.state,
+                        new CensusDAO(stateCensusPojo)));
+            stateCensusList = stateCensusMap.values().stream().collect(Collectors.toList());
             int numberOfRecords = stateCensusMap.size();
             return numberOfRecords;
         } catch (NoSuchFileException e) {
@@ -61,11 +63,11 @@ public class StateCensusAnalyser {
         ) {
             OpenCSVBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
             Iterator<StateCodePojo> codeIterator = csvBuilder.getIterator(reader, StateCodePojo.class);
-            while (codeIterator.hasNext()) {
-                CensusDAO censusDAO = new CensusDAO (codeIterator.next());
-                this.stateCensusMap.put(censusDAO.stateCode, censusDAO);
-                stateCensusList = stateCensusMap.values().stream().collect(Collectors.toList());
-            }
+            Iterable<StateCodePojo> codeIterable = () -> codeIterator;
+            StreamSupport.stream(codeIterable.spliterator(), false)
+                    .forEach(stateCodePojo -> stateCensusMap.put(stateCodePojo.stateCode,
+                            new CensusDAO(stateCodePojo)));
+            stateCensusList = stateCensusMap.values().stream().collect(Collectors.toList());
             int numberOfRecords = stateCensusMap.size();
             return numberOfRecords;
         } catch (NoSuchFileException e) {
@@ -79,6 +81,27 @@ public class StateCensusAnalyser {
         }
         return 0;
     }
+
+    public int loadUSCensusRecords(String path) throws CSVBuilderException {
+        try (
+                Reader reader = Files.newBufferedReader(Paths.get(path))
+        ) {
+            OpenCSVBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
+            List<CSVUSCensus> csvusCensusList = csvBuilder.getList(reader, CSVUSCensus.class);
+            int numberOfRecords = csvusCensusList.size();
+            return numberOfRecords;
+        } catch (NoSuchFileException e) {
+            throw new CSVBuilderException(e.getMessage(),
+                    CSVBuilderException.ExceptionType.FILE_NOT_FOUND);
+        } catch (RuntimeException e) {
+            throw new CSVBuilderException(e.getMessage(),
+                    CSVBuilderException.ExceptionType.DELIMITER_INCORRECT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public String getSortedCensusData() {
         Comparator<CensusDAO> csvComparator = Comparator.comparing(census -> census.state);
         this.sort(csvComparator);
