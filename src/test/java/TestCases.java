@@ -1,3 +1,4 @@
+import model.CSVUSCensus;
 import model.StateCensusPojo;
 import model.StateCodePojo;
 import service.CensusDAO;
@@ -176,12 +177,30 @@ public class TestCases {
         Assert.assertEquals(51, numOfRecords);
     }
 
+    //TC 9.1
     @Test
     public void givenTheUSCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult() throws CSVBuilderException {
         usStateCensusAnalyser.loadCensusRecords(US, US_CENSUS_CSV_FILE_PATH);
-        String sortedData = usStateCensusAnalyser.getPopulationWiseUSSortedCensusData();
-        CensusDAO[] censusDAO = new Gson().fromJson(sortedData, CensusDAO[].class);
-        Assert.assertEquals("California", censusDAO[0].state);
+        String sortedData = usStateCensusAnalyser.getSortedCensusData(StateCensusAnalyser.SortingMode.POPULATION);
+        CSVUSCensus[] censusDAO = new Gson().fromJson(sortedData, CSVUSCensus[].class);
+        Assert.assertEquals("California", censusDAO[0].usState);
     }
+
+    @Test
+    public void givenTheUSCensusData_WhenSortedByDensity_ShouldReturnSortedResult() throws CSVBuilderException {
+        usStateCensusAnalyser.loadCensusRecords(US, US_CENSUS_CSV_FILE_PATH);
+        String sortedData = usStateCensusAnalyser.getSortedCensusData(StateCensusAnalyser.SortingMode.DENSITY);
+        CSVUSCensus[] censusDAO = new Gson().fromJson(sortedData, CSVUSCensus[].class);
+        Assert.assertEquals("District of Columbia", censusDAO[0].usState);
+    }
+
+    @Test
+    public void givenTheUSCensusData_WhenSortedByArea_ShouldReturnSortedResult() throws CSVBuilderException {
+        usStateCensusAnalyser.loadCensusRecords(US, US_CENSUS_CSV_FILE_PATH);
+        String sortedData = usStateCensusAnalyser.getSortedCensusData(StateCensusAnalyser.SortingMode.AREA);
+        CSVUSCensus[] censusDAO = new Gson().fromJson(sortedData, CSVUSCensus[].class);
+        Assert.assertEquals("Alaska", censusDAO[0].usState);
+    }
+
 
 }
