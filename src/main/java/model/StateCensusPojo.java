@@ -7,21 +7,22 @@ public class StateCensusPojo {
     public String state;
 
     @CsvBindByName(column = "Population",required = true)
-    public int population;
+    public double population;
 
     @CsvBindByName(column = "AreaInSqKm",required = true)
-    public int area;
+    public double area;
 
     @CsvBindByName(column = "DensityPerSqKm",required = true)
-    public int density;
+    public double density;
 
     public StateCensusPojo(StateCensusPojo next) {
     }
 
+
     public StateCensusPojo() {
     }
 
-    public StateCensusPojo(String state, int population, int area, int density) {
+    public StateCensusPojo(String state, double population, double area, double density) {
         this.state = state;
         this.population = population;
         this.area = area;
