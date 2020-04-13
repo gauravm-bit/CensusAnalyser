@@ -46,6 +46,15 @@ public class StateCensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    public String getDualSortByPopulationDensity() throws CSVBuilderException {
+        ArrayList arrayList = stateCensusMap.values().stream()
+                .sorted(Comparator.comparingDouble(CensusDAO::getPopulation).thenComparingDouble(CensusDAO::getDensity).reversed())
+                .map(censusDAO -> censusDAO.getCensusDTO(country))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new Gson().toJson(arrayList);
+    }
+
+
 
     private <E> void sort(Comparator<CensusDAO> csvComparator) {
         for (int i = 0; i < stateCensusList.size() - 1; i++) {
